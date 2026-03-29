@@ -10,7 +10,18 @@
         $hasPackageManifest = file_exists($packageManifestPath);
         $hasHostManifest = file_exists($hostManifestPath);
         $isHot = file_exists(public_path('hot'));
+
+        // Debug info for the developer
+        $debugInfo = [
+            'package_manifest' => $packageManifestPath,
+            'package_exists' => $hasPackageManifest,
+            'host_manifest' => $hostManifestPath,
+            'host_exists' => $hasHostManifest,
+            'is_hot' => $isHot,
+        ];
     @endphp
+
+    <!-- Asset Detection Debug: {{ json_encode($debugInfo) }} -->
 
     @if($hasPackageManifest)
         @php
@@ -40,7 +51,10 @@ npm install && npm run build
 php artisan vendor:publish --tag=api-docs-assets-build</pre>
             </div>
             <p style="font-size: 0.8rem; color: #868e96; margin-top: 1rem;">
-                (Searched for: <code>public/vendor/api-docs/build/manifest.json</code> and <code>public/build/manifest.json</code>)
+                (Searched for: <code>{{ $packageManifestPath }}</code> [{{ $hasPackageManifest ? 'FOUND' : 'NOT FOUND' }}]
+                and <code>{{ $hostManifestPath }}</code> [{{ $hasHostManifest ? 'FOUND' : 'NOT FOUND' }}])
+                <br>
+                isHot: [{{ $isHot ? 'TRUE' : 'FALSE' }}]
             </p>
         </div>
     @endif
