@@ -26,7 +26,21 @@
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     @else
-        <!-- Vite manifest not found and not in hot mode. Please run 'npm run build' or publish package assets. -->
+        <div id="api-docs-no-assets" style="padding: 2rem; font-family: sans-serif; text-align: center;">
+            <h1 style="color: #e03131;">Assets Not Found</h1>
+            <p>The API documentation assets (JS/CSS) could not be loaded.</p>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; display: inline-block; text-align: left; margin-top: 1rem;">
+                <strong>To fix this, please run one of the following:</strong>
+                <pre style="margin-top: 0.5rem; background: #eee; padding: 0.5rem;"># Option 1: Build host assets
+npm install && npm run build
+
+# Option 2: Publish pre-built package assets (if available)
+php artisan vendor:publish --tag=api-docs-assets-build</pre>
+            </div>
+            <p style="font-size: 0.8rem; color: #868e96; margin-top: 1rem;">
+                (Searched for: <code>public/vendor/api-docs/build/manifest.json</code> and <code>public/build/manifest.json</code>)
+            </p>
+        </div>
     @endif
     @inertiaHead
 </head>
