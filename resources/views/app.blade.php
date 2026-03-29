@@ -22,9 +22,11 @@
         @if(isset($manifest['resources/js/app.jsx']['file']))
             <script type="module" src="{{ asset('vendor/api-docs/build/' . $manifest['resources/js/app.jsx']['file']) }}"></script>
         @endif
+        @inertiaHead
     @elseif($isHot || $hasHostManifest)
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
+        @inertiaHead
     @else
         <div id="api-docs-no-assets" style="padding: 2rem; font-family: sans-serif; text-align: center;">
             <h1 style="color: #e03131;">Assets Not Found</h1>
@@ -42,9 +44,10 @@ php artisan vendor:publish --tag=api-docs-assets-build</pre>
             </p>
         </div>
     @endif
-    @inertiaHead
 </head>
 <body>
-    @inertia
+    @if($hasPackageManifest || $isHot || $hasHostManifest)
+        @inertia
+    @endif
 </body>
 </html>
